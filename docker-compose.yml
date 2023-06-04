@@ -1,0 +1,25 @@
+version: "3.9"
+services:
+  postgres:
+    container_name: postgres-duplicate-row
+    image: postgres:15.2-alpine3.17
+    environment:
+      POSTGRES_DB: test
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: test
+    volumes:
+      - postgres:/data/postgres
+    ports:
+      - "5432:5432"
+    healthcheck:
+      interval: 10s
+      timeout: 5s
+      retries: 5
+    restart:
+      unless-stopped
+networks:
+  postgres:
+    driver: bridge
+
+volumes:
+  postgres:
